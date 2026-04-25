@@ -1,0 +1,735 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>EV app</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="9d17c526-9d03-48dd-806f-5c829336af45" class="page sans"><header><img class="page-cover-image" src="EV%20app/BANNER_(1).png" style="object-position:center 49.28%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🚘</span></div><h1 class="page-title" dir="auto">EV app</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody><tr class="property-row property-row-text"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/description_gray.svg" style="width:14px;height:14px;display:block"/></span>Role</th><td>UX designer</td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/list_gray.svg" style="width:14px;height:14px;display:block"/></span>Tags</th><td><span class="selected-value select-value-color-yellow">Mobile App</span><span class="selected-value select-value-color-green">UI/UX</span><span class="selected-value select-value-color-yellow">iOS App</span></td></tr><tr class="property-row property-row-text"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/description_gray.svg" style="width:14px;height:14px;display:block"/></span>Timeline</th><td>Three months</td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/list_gray.svg" style="width:14px;height:14px;display:block"/></span>Tools</th><td><span class="selected-value select-value-color-pink">Figma</span><span class="selected-value select-value-color-red">Gmail</span><span class="selected-value select-value-color-blue">Notion</span><span class="selected-value select-value-color-brown">Zoom</span></td></tr></tbody></table></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="a92f8276-517a-491f-a677-7068db9ea3a4" class="">Project Overview : <strong>Electric Vehicle charging app for BP</strong></h1></div><div style="display:contents" dir="auto"><ul id="c28d53af-9832-4282-8c28-a1ea41bfc4c4" class="bulleted-list"><li style="list-style-type:disc"><strong>Client: </strong>bp emphasises being at the forefront of the sustainable energy transition and, as such, has recognised electric vehicles (EVs) as the way of the future. With so many new EVs appearing on the market daily, there is a basic need for a universal mobile app that helps owners navigate to the closest charging station.</li></ul></div><div style="display:contents" dir="auto"><p id="72ebc4ed-cbf5-4d6a-a186-c5d0c1271d71" class=""> The user should be able to do the following key tasks, listed in order of importance:</p></div><div style="display:contents" dir="auto"><ol type="1" id="83c08ee2-6aff-4b06-9baf-40b678eb3c92" class="numbered-list" start="1"><li>Find the closest charging station.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="19049b6f-cc2c-4031-98bc-99c297cf7512" class="numbered-list" start="2"><li>See if they have enough battery to get to the charging station.</li></ol></div><div style="display:contents" dir="auto"><ul id="560b3a8d-6217-43de-a81d-65f28193daaf" class="bulleted-list"><li style="list-style-type:disc"><strong>Goal: </strong>The primary goal of the project is to design and develop a user-friendly mobile application, EV Connect+, aimed at enhancing the experience of electric vehicle (EV) users in locating and utilizing charging stations.</li></ul></div><div style="display:contents" dir="auto"><p id="9d183736-7c6d-4bce-911d-3e52faa38f85" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="da05fad3-7343-4972-abed-9c05e3d2e06c" class="image"><a href="EV%20app/Ev_banner.png"><img style="width:3000px" src="EV%20app/Ev_banner.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="0f358cb7-9980-4bdc-bb25-1b3be8d96cd3" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="aab4569d-3c01-4bbd-934e-9e13e7e033d3" class="">Problem</h2></div><div style="display:contents" dir="auto"><p id="2f2c85e0-d183-41da-8719-8350aaac992c" class="">Many electric vehicle users, including new owners like Bhavika Bisht, face challenges in efficiently finding nearby charging stations and estimating if they can reach them in time. The lack of a user-friendly solution contributes to anxiety and inconvenience, highlighting the need for a straightforward and reliable EV app like EV Connect+ to enhance the charging experience.</p></div><div style="display:contents" dir="auto"><p id="fd9c1526-a96c-455b-aad5-edfbc4e8653a" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="292f1f72-393b-46df-ae25-6f7f98f2de2e" class="">Solution</h2></div><div style="display:contents" dir="auto"><p id="db2c4775-4e08-4c79-b157-4a049a26913e" class="">EV Connect+ provides a convenient solution for electric vehicle users, like Bhavika Bisht, with a user-friendly app. This app helps users easily find nearby charging stations and determines if they can reach them in time. This improves the overall EV charging experience by addressing the challenges involved.</p></div><div style="display:contents" dir="auto"><p id="2c17444e-79a2-46ff-a1fe-15ab22ad618e" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="86929a5a-a16d-405d-bff4-e59f4d089055" class="">Process</h2></div><div style="display:contents" dir="auto"><p id="af1834d0-a8b1-4e4c-a347-0275fb0b64a1" class="">Keeping in mind to design the best user experience for Ev connect+, the design process that I’ve followed:</p></div><div style="display:contents" dir="auto"><p id="d69b6a12-e2a5-4291-80d2-c2b96135e6d8" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="c8da3207-8e66-4208-b8c2-47dc45e864cd" class="image"><a href="EV%20app/Process_(1).png"><img style="width:707.9874877929688px" src="EV%20app/Process_(1).png"/></a></figure></div><div style="display:contents" dir="auto"><p id="a9ed7818-80c5-4914-982c-19c025f26003" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="4e75821e-4bee-4f9c-a392-f373eb0c1c3c" class="">Persona</h2></div><div style="display:contents" dir="ltr"><figure id="698a85b9-456b-4237-96cc-9535651d8eaf" class="image"><a href="EV%20app/Untitled.png"><img style="width:8064px" src="EV%20app/Untitled.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="4b050aa7-b866-4f95-908a-39569c805c54" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="b9c01d38-7501-4145-bc27-05b33fe471ab" class="">User Flow</h2></div><div style="display:contents" dir="auto"><p id="4e83cb18-752e-4fe6-ad68-87e6cc92f9bf" class="">A user flow represents the path that a user takes through a website or application to complete a specific task or achieve a particular goal.</p></div><div style="display:contents" dir="auto"><p id="0369d140-3d7f-4549-9fb3-0e814abca777" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="dbc84c11-c614-4837-a26b-a79fa058ac5d" class="image"><a href="EV%20app/Untitled%201.png"><img style="width:3424px" src="EV%20app/Untitled%201.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="ba3f91f1-3615-4499-82b0-f1a4a938cefd" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="5485d2a1-2bbf-4bd3-80ca-399d8aab47aa" class="">Paper Wireframes</h2></div><div style="display:contents" dir="auto"><p id="48fed14a-196c-4b0c-9e9e-3d494322264b" class="">Starting with conceptual wireframes, progressing to detailed mockups, and culminating in a high-fidelity prototype, this approach effectively addresses and resolves user needs.</p></div><div style="display:contents" dir="auto"><p id="d922f7a4-9092-41d8-87dc-31b1204b7fe7" class="">
+</p></div><div style="display:contents" dir="auto"><p id="c60d9de7-7080-41a3-8ba7-02b9523aac8a" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="cb56ffcd-d401-4a3e-bfce-7bfe064b6b5b" class="image"><a href="EV%20app/IMG_20240103_135224.jpg"><img style="width:672px" src="EV%20app/IMG_20240103_135224.jpg"/></a></figure></div><div style="display:contents" dir="auto"><p id="c3de4e54-13e6-4b02-8a19-b976a48522e6" class="">
+</p></div><div style="display:contents" dir="auto"><p id="31421b62-232f-4374-ab1f-b827352b28e3" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="543a8436-71f1-4a9f-860a-360764d618bc" class="">Low fidelity prototype</h2></div><div style="display:contents" dir="auto"><p id="2e1029b3-5a61-4f11-aab4-d2d601118980" class="">Based on the research and user persona, I started designing the wireframes concept. The main goal was to get the user to see the nearest EV stations and reserve a slot with automatic payment with a little to no effort.</p></div><div style="display:contents" dir="auto"><p id="2892bcc6-c27a-415e-8c66-8959696b089d" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="68486887-0546-4a16-a7fd-584e0dd2a130" class="image"><a href="EV%20app/Lofi_(1).png"><img style="width:4072px" src="EV%20app/Lofi_(1).png"/></a></figure></div><div style="display:contents" dir="auto"><p id="a4eb287b-6488-401b-8b63-f9dd5651400e" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="5dec853f-1226-4da8-8f67-a09352f3f7ff" class="">Design Systems</h2></div><div style="display:contents" dir="auto"><p id="86e3d4d5-1700-43c3-8822-17c5dcc48693" class="">
+</p></div><div style="display:contents" dir="auto"><p id="16de343e-84e9-457f-a11e-31110824f295" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="104e7896-e748-4e5f-993a-3e9e4e2c72a9" class="image"><a href="EV%20app/Design_system.png"><img style="width:528px" src="EV%20app/Design_system.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="9f77f2a0-32ff-4ec2-847e-19e8ec2e31f9" class="">
+</p></div><div style="display:contents" dir="auto"><p id="a43f828d-2d44-4bec-8454-3214e41979c1" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="fa468e7d-3334-4fc8-832b-3b16b69bc611" class="">High fidelity prototype</h2></div><div style="display:contents" dir="auto"><p id="86371af4-1e9c-40ba-baa6-0395bed30197" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="4c2a923d-5c9f-41db-a5d3-882ff9c12669"><div class="source"><a href="https://www.figma.com/embed?embed_host=share&amp;url=https%3A%2F%2Fwww.figma.com%2Fproto%2FIGW40LOcnYdx7MNtShSoi1%2FUntitled%3Ftype%3Ddesign%26node-id%3D6-2%26t%3DW1fEDQInsDlR645F-1%26scaling%3Dscale-down%26page-id%3D0%253A1%26starting-point-node-id%3D6%253A2%26mode%3Ddesign">https://www.figma.com/embed?embed_host=share&amp;url=https%3A%2F%2Fwww.figma.com%2Fproto%2FIGW40LOcnYdx7MNtShSoi1%2FUntitled%3Ftype%3Ddesign%26node-id%3D6-2%26t%3DW1fEDQInsDlR645F-1%26scaling%3Dscale-down%26page-id%3D0%253A1%26starting-point-node-id%3D6%253A2%26mode%3Ddesign</a></div></figure></div><div style="display:contents" dir="auto"><p id="c857a68e-1009-41ce-a2b6-4d287e6ef049" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="b18baaf6-00ea-443a-be03-0aee16327db2" class="">Conclusion</h2></div><div style="display:contents" dir="auto"><p id="ebbff8d0-0fea-4b4b-85d0-98552cb9c645" class="">The EV Connect+ app helps electric vehicle users find and use charging stations easily. It improves the charging experience and supports BP&#x27;s diverse user base in creating a more sustainable and convenient future.</p></div><div style="display:contents" dir="auto"><p id="ec30a0c0-a908-4d1c-bdb9-93463725c9d2" class="">
+</p></div><div style="display:contents" dir="auto"><h2 id="95ba7bbc-7cf2-449f-92be-02528f6fff0d" class="">What i learned</h2></div><div style="display:contents" dir="auto"><p id="7595a989-96c6-4ac5-9e24-a4d1d7395360" class="">I&#x27;ve learned how important it is to understand and relate to different types of users, including those who care about the environment and newcomers like Bhavika Bisht. This has helped me understand the difficulties they face when trying to find and use charging stations. I want to create a design that focuses on what they need by including features like instant notifications, accurate battery estimates, and smooth integration. This will make their electric vehicle charging experience better and more convenient.</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
